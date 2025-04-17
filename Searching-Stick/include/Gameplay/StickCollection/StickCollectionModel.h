@@ -33,7 +33,7 @@ namespace Gameplay
 			void initialize();
 			void update();
 
-			void setElementSpacing(float spzce);
+			void setElementSpacing(float space);
 		};
 	}
 }

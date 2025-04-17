@@ -36,6 +36,8 @@ namespace Gameplay
 			void update();
 			void render();
 			
+			void reset();
+
 			SearchType getSearchType();
 			int getNumberOfSticks();
 

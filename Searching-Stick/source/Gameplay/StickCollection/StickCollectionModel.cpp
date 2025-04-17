@@ -24,6 +24,7 @@ void Gameplay::Collections::StickCollectionModel::update()
 {
 }
 
-void Gameplay::Collections::StickCollectionModel::setElementSpacing(float spzce)
+void Gameplay::Collections::StickCollectionModel::setElementSpacing(float space)
 {
+	elements_spacing = space;
 }
