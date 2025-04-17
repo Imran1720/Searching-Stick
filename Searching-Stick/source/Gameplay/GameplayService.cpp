@@ -35,6 +35,21 @@ namespace Gameplay
 		gameplay_controller->reset();
 	}
 
+	void GameplayService::searchElement(SearchType search_type)
+	{
+
+	}
+
+	SearchType GameplayService::getCurrentSearchType()
+	{
+		return stick_collection_controller->getSearchType();
+	}
+
+	int GameplayService::getNumberOfSticks()
+	{
+		return stick_collection_controller->getNumberOfSticks();
+	}
+
 	void GameplayService::destroy()
 	{
 		delete gameplay_controller;
