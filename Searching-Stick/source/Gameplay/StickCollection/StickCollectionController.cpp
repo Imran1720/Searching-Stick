@@ -243,6 +243,10 @@ namespace Gameplay
 		{
 			return sticks.size();
 		}
+		sf::String StickCollectionController::getTimeComplexity()
+		{
+			return time_complexity;
+		}
 		int StickCollectionController::getDelayMillseconds()
 		{
 			return current_operation_delay;

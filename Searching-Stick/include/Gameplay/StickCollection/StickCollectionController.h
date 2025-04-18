@@ -28,6 +28,8 @@ namespace Gameplay
 			int number_of_array_access;
 
 			int current_operation_delay;
+
+			sf::String time_complexity;
 			
 			void initializeSticks();
 			float calculateStickWidth();
