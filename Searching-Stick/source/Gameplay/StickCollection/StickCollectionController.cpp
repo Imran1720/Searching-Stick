@@ -5,12 +5,14 @@
 #include "../../include/Gameplay/StickCollection/Stick.h"
 #include "../../include/Gameplay/GameplayService.h"
 #include "../../include/Global/ServiceLocator.h"
+#include <random>
 
 namespace Gameplay
 {
 	namespace Collections
 	{
 		using namespace Global;
+		using namespace std;
 
 		StickCollectionController::StickCollectionController()
 		{
@@ -46,8 +48,7 @@ namespace Gameplay
 
 			float total_spacing = stick_collection_model->space_percentage * total_space;
 
-			float space_between = total_spacing / stick_collection_model->number_of_elements - 1;
-
+			float space_between = total_spacing / (stick_collection_model->number_of_elements - 1);
 			stick_collection_model->setElementSpacing(space_between);
 
 			float remaining_space = total_space - total_spacing;
@@ -88,6 +89,27 @@ namespace Gameplay
 			return (static_cast<float>(array_pos+1)/stick_collection_model->number_of_elements)*stick_collection_model->max_element_height;
 
 		}
+		
+		void StickCollectionController::resetSearchStick()
+		{
+			stick_to_search = sticks[rand() % sticks.size()];
+			stick_to_search->stick_view->setFillColor(stick_collection_model->search_element_color);
+		}
+
+		void StickCollectionController::shuffleSticks()
+		{
+			random_device device;
+			mt19937 default_random_engine(device());
+
+			shuffle(sticks.begin(), sticks.end(), default_random_engine);
+		}
+
+		void StickCollectionController::resetVariables()
+		{
+			number_of_comparisons = 0;
+			number_of_array_access = 0;
+		}
+
 		void StickCollectionController::destroy()
 		{
 			delete stick_collection_model;
@@ -121,8 +143,58 @@ namespace Gameplay
 		
 		void StickCollectionController::reset()
 		{
-			resetSticksColor();
+			shuffleSticks();
 			updateSticksPosition();
+			resetSticksColor();
+			resetSearchStick();
+			resetVariables();
+		}
+
+		int StickCollectionController::getNumberOfComparision()
+		{
+			return number_of_comparisons;
+		}
+
+		int StickCollectionController::getNumberOfArrayAccess()
+		{
+			return number_of_array_access;
+		}
+
+		void StickCollectionController::processLinearSearch()
+		{
+			for (int i = 0; i < sticks.size(); i++)
+			{
+				number_of_array_access++;
+				number_of_comparisons++;
+				//ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::COMPARE_SFX);
+
+				if (sticks[i] == stick_to_search)
+				{
+					stick_to_search->stick_view->setFillColor(stick_collection_model->found_element_color);
+					stick_to_search = nullptr;
+					return;
+				}
+				sticks[i]->stick_view->setFillColor(stick_collection_model->processing_element_color);
+				sticks[i]->stick_view->setFillColor(stick_collection_model->element_color);
+
+			}
+
+		}
+
+		void StickCollectionController::searchElement(SearchType search_type)
+		{
+			switch (search_type)
+			{
+			case Gameplay::Collections::SearchType::LINEAR_SEARCH:
+				this->search_type = search_type;
+				processLinearSearch();
+				break;
+			case Gameplay::Collections::SearchType::BINARY_SEARCH:
+				this->search_type = search_type;
+				break;
+			default:
+				break;
+			}
 		}
 
 		SearchType StickCollectionController::getSearchType()

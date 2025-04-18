@@ -1,6 +1,7 @@
 #include "../../include/Gameplay/GameplayService.h"
 #include "../../include/Gameplay/GameplayController.h"
 #include "../../include/Gameplay/StickCollection/StickCollectionController.h"
+#include <random>
 
 namespace Gameplay
 {
@@ -19,6 +20,7 @@ namespace Gameplay
 
 	void GameplayService::initialize()
 	{
+		initializeRandomSeed();
 		gameplay_controller->initialize();
 		stick_collection_controller->initialize();
 	}
@@ -38,12 +40,18 @@ namespace Gameplay
 	void GameplayService::reset()
 	{
 		gameplay_controller->reset();
-		//stick_collection_controller->reset();
+		stick_collection_controller->reset();
+	}
+
+	void GameplayService::initializeRandomSeed()
+	{
+
+		std::srand(static_cast<unsigned int>(std::time(nullptr)));
 	}
 
 	void GameplayService::searchElement(SearchType search_type)
 	{
-
+		stick_collection_controller->searchElement(search_type);
 	}
 
 	SearchType GameplayService::getCurrentSearchType()

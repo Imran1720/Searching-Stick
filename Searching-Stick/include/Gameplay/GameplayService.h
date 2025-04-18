@@ -25,6 +25,8 @@ namespace Gameplay
 
 		void reset();
 
+		void initializeRandomSeed();
+
 		void searchElement(SearchType search_type);
 
 		SearchType getCurrentSearchType();
