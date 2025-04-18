@@ -59,9 +59,33 @@ namespace Gameplay
 		return stick_collection_controller->getSearchType();
 	}
 
+	std::string GameplayService::getTimeComplexity()
+	{
+		if (getCurrentSearchType() == SearchType::LINEAR_SEARCH)
+		{
+			return "O(n)";
+		}
+		return "O(log n)";
+	}
+
 	int GameplayService::getNumberOfSticks()
 	{
 		return stick_collection_controller->getNumberOfSticks();
+	}
+
+	int GameplayService::getNumberOfComparisions()
+	{
+		return stick_collection_controller->getNumberOfComparision();
+	}
+
+	int GameplayService::getNumberOfArrayAccess()
+	{
+		return stick_collection_controller->getNumberOfArrayAccess();
+	}
+
+	int GameplayService::getDelay()
+	{
+		return stick_collection_controller->getDelayMillseconds();
 	}
 
 	void GameplayService::destroy()

@@ -219,16 +219,16 @@ namespace Gameplay
 
 		void StickCollectionController::searchElement(SearchType search_type)
 		{
+				this->search_type = search_type;
 			switch (search_type)
 			{
 			case Gameplay::Collections::SearchType::LINEAR_SEARCH:
 				
-				this->search_type = search_type;
+				//time_complexity = "O(n)";
 				current_operation_delay = stick_collection_model->linear_search_delay;
 				search_thread = std::thread(&StickCollectionController::processLinearSearch, this);
 				break;
 			case Gameplay::Collections::SearchType::BINARY_SEARCH:
-				this->search_type = search_type;
 				break;
 			default:
 				break;

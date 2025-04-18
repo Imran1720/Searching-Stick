@@ -1,6 +1,5 @@
 #include "Sound/SoundService.h"
 #include "Global/Config.h"
-
 namespace Sound
 {
 	using namespace Global;

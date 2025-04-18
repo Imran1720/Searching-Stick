@@ -1,6 +1,7 @@
 #pragma once
 #include <Vector>
 #include <thread>
+#include <SFML/Graphics.hpp>
 
 namespace Gameplay
 {
@@ -66,6 +67,8 @@ namespace Gameplay
 
 			SearchType getSearchType();
 			int getNumberOfSticks();
+
+			sf::String getTimeComplexity();
 
 			int getDelayMillseconds();
 

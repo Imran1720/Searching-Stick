@@ -31,6 +31,11 @@ namespace Gameplay
 
 		SearchType getCurrentSearchType();
 
+		std::string getTimeComplexity();
+
 		int getNumberOfSticks();
+		int getNumberOfComparisions();
+		int getNumberOfArrayAccess();
+		int getDelay();
 	};
 }
