@@ -86,13 +86,12 @@ namespace UI
 
 		void GameplayUIController::updateTexts()
 		{
-			search_type_text->update();
+			updateSearchText();
 			updateComarisionText();
 			updateArrayAccessText();
 			num_sticks_text->update();
-			delay_text->update();
-			time_complexity_text->update();
-
+			updateDelayText();
+			updateTimeComplexityText();
 		}
 
 		void GameplayUIController::renderTexts()
@@ -118,7 +117,8 @@ namespace UI
 		void GameplayUIController::setTextValues()
 		{
 			GameplayService* gameplay_service = ServiceLocator::getInstance()->getGameplayService();
-			search_type_text->setText("Linear Search");
+			
+			search_type_text->setText("Linear");
 			number_of_comparisons_text->setText("Comparisions : 0");
 			number_of_array_access_text->setText("Array Access : 0");
 			num_sticks_text->setText("Number of Sticks : "+ std::to_string(gameplay_service->getNumberOfSticks()));
@@ -140,6 +140,29 @@ namespace UI
 			int count = ServiceLocator::getInstance()->getGameplayService()->getNumberOfArrayAccess();
 			number_of_array_access_text->setText("Array Access  : " + std::to_string(count));
 			number_of_array_access_text->update();
+		}
+
+		void GameplayUIController::updateSearchText()
+		{
+			SearchType search_type = ServiceLocator::getInstance()->getGameplayService()->getCurrentSearchType();
+			sf::String search_text = search_type == SearchType::LINEAR_SEARCH ? "Linear" : "Binary";
+
+			search_type_text->setText(search_text);
+			search_type_text->update();
+		}
+
+		void GameplayUIController::updateDelayText()
+		{
+			int delay = ServiceLocator::getInstance()->getGameplayService()->getDelay();
+
+			delay_text->setText("Delay : " + std::to_string(delay));
+			delay_text->update();
+		}
+
+		void GameplayUIController::updateTimeComplexityText()
+		{
+			time_complexity_text->setText(ServiceLocator::getInstance()->getGameplayService()->getTimeComplexity());
+			time_complexity_text->update();
 		}
 
 		void GameplayUIController::createTexts()

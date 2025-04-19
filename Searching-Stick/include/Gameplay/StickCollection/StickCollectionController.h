@@ -43,6 +43,7 @@ namespace Gameplay
 			void shuffleSticks();
 
 			void processLinearSearch();
+			void processBinarySearch();
 
 			void processSearchThreadState();
 
@@ -50,6 +51,8 @@ namespace Gameplay
 			void destroy();
 			void joinThreads();
 
+			bool compareElementsByData(const Stick* stick1,const Stick* stick2) const;
+			void sortElements();
 
 		public:
 			StickCollectionController();
