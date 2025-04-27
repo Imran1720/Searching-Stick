@@ -6,6 +6,7 @@
 #include "../../include/Gameplay/GameplayService.h"
 #include "../../include/Global/ServiceLocator.h"
 #include <random>
+#include <iostream>
 
 
 namespace Gameplay
@@ -128,6 +129,18 @@ namespace Gameplay
 		{
 			search_thread.join();
 		}
+
+		bool StickCollectionController::compareElementsByData(const Stick* stick1, const Stick* stick2) const 
+		{
+			return stick1->data < stick2->data;
+		}
+
+		void StickCollectionController::sortElements()
+		{
+			sort(sticks.begin(), sticks.end(), [this](const Stick* a, const Stick* b) {return compareElementsByData(a, b); });
+
+				updateSticksPosition();
+		}
 		
 		void StickCollectionController::initialize()
 		{
@@ -209,6 +222,41 @@ namespace Gameplay
 
 		}
 
+		void StickCollectionController::processBinarySearch()
+		{
+			int left = 0;
+			int right = sticks.size() - 1;
+
+			Sound::SoundService* sound_service = ServiceLocator::getInstance()->getSoundService();
+
+			while (left <= right)
+			{
+				int mid = (left + right) / 2;
+				number_of_array_access += 2;
+				number_of_comparisons++;
+
+				sound_service->playSound(Sound::SoundType::COMPARE_SFX);
+
+				if (sticks[mid] == stick_to_search)
+				{
+					sticks[mid]->stick_view->setFillColor(stick_collection_model->found_element_color);
+					stick_to_search = nullptr;
+					return;
+				}
+
+				sticks[mid]->stick_view->setFillColor(stick_collection_model->processing_element_color);
+
+				std::this_thread::sleep_for(std::chrono::milliseconds(current_operation_delay));
+
+				sticks[mid]->stick_view->setFillColor(stick_collection_model->element_color);
+
+				number_of_array_access++;
+
+				if (sticks[mid]->data <= stick_to_search->data) { left = mid; }
+				else right = mid;
+			}
+		}
+
 		void StickCollectionController::processSearchThreadState()
 		{
 			if (search_thread.joinable() && stick_to_search == nullptr)
@@ -219,16 +267,19 @@ namespace Gameplay
 
 		void StickCollectionController::searchElement(SearchType search_type)
 		{
-				this->search_type = search_type;
+			cout << "2";
+			this->search_type = search_type;
 			switch (search_type)
 			{
 			case Gameplay::Collections::SearchType::LINEAR_SEARCH:
 				
-				//time_complexity = "O(n)";
 				current_operation_delay = stick_collection_model->linear_search_delay;
 				search_thread = std::thread(&StickCollectionController::processLinearSearch, this);
 				break;
 			case Gameplay::Collections::SearchType::BINARY_SEARCH:
+				sortElements();
+				current_operation_delay = stick_collection_model->binary_search_delay;
+				search_thread = thread(&StickCollectionController::processBinarySearch, this);
 				break;
 			default:
 				break;

@@ -48,6 +48,9 @@ namespace UI
 			void setTextValues();
 			void updateComarisionText();
 			void updateArrayAccessText();
+			void updateSearchText();
+			void updateDelayText();
+			void updateTimeComplexityText();
 
 			void createTexts();
 			void initializeMenuButton();
