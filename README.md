@@ -3,13 +3,13 @@ Ever wondered how your computer finds files so fast, or how search engines deliv
 The secret lies in efficient searching algorithms.
 In this project, we visualize how Linear Search and Binary Search work — making abstract concepts easy to see and understand!
 
-### Working
+### 💻 Working
 
 ![Image](https://github.com/Imran1720/Searching-Stick/blob/31319d9deca46ee218ec8d7e45755f207b67a3e2/Attachment/Linear.gif)
 
 ![Image](https://github.com/Imran1720/Searching-Stick/blob/31319d9deca46ee218ec8d7e45755f207b67a3e2/Attachment/Binary.gif)
 
-### Features
+### ✨ Features
  <ol> <li><b>Linear Search visualization.</b></li>
 
 <li><b>Binary Search visualization.</b></li>
@@ -33,7 +33,7 @@ In this project, we visualize how Linear Search and Binary Search work — makin
 <li>Smooth, animated transitions powered by SFML.</li>
 </ol>
 
-### How It Works
+### ❔ How It Works
  <ol> <li><b>Linear Search:</b>
  <b>Moves sequentially</b> through each element in the array until it finds the target.</li>
 
@@ -44,7 +44,7 @@ Repeatedly divides the array into halves, checking the middle value at each step
   <li><b>Comparisons and Array Accesses</b> are tracked live, helping you appreciate the algorithm's efficiency (or inefficiency).</li>
   </ol>
 
-### Learning Highlights
+### 🧠 Learning Highlights
 <ol> 
   <li> <b>SFML</b> graphics for rendering data visually.</li>
   <li> Deep understanding of <b>search algorithm</b>  behaviors.</li>
